@@ -1,0 +1,47 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %}{{ user.getFullNameOrUsername }}{% endblock %}
+
+{% block styles %}
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="box first" id="container">
+			<div class="row">
+				<div class="center gap">
+		            <h2>Users</h2>
+		        </div>
+			    <table class="table">
+			    	<thead>
+				        <tr>
+				          <th>#</th>
+				          <th>First Name</th>
+				          <th>Last Name</th>
+				          <th>Username</th>
+				          <th>Email</th>
+				          <th>Active</th>
+				        </tr>
+			      </thead>
+			      <tbody>
+			      	{% for user in users %}
+			      	<tr>
+						<td><a href="{{ urlFor('profile', {username: user.username}) }}">{{user.id}}</a></td>
+						<td>{{user.first_name}}</td>
+						<td>{{user.last_name}}</td>
+						<td>{{user.getFullNameOrUsername}} {{user.isAdmin? '(Admin)'}}</td>
+						<td>{{user.email}}</td>
+						<td>{{ user.active? 'Yes' : 'No'}}</td>
+			        </tr>
+			      	{% endfor %}
+			      </tbody>
+			    </table>
+			</div>
+        </div><!--/.box-->
+    </div><!--/.container-->
+</section><!--/#services-->
+{% endblock %}

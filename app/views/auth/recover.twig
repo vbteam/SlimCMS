@@ -1,0 +1,35 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %}Recover{% endblock %}
+
+{% block styles %}
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="box first" id="container">
+	    	<div class="center gap">
+	            <h2>Recover Password</h2>
+	        </div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">					
+	            	<form action="{{ urlFor('recover.post') }}" method="post" autocomplete="off" class="form-inline">
+						<div class="form-group">
+							<input type="email" name="email" id="email" class="form-control" placeholder="Email"{% if request.post('email') %} value="{{request.post('email')}}"{% endif %} required>
+						</div>					
+						<div class="form-group">
+							<input type="submit" value="Recover" class="btn btn-primary">
+						</div>
+						{% if errors.first('email') %} <p class="text-danger">{{errors.first('email')}}</p> {% endif %}
+						<input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+					</form>
+				</div>
+			</div>
+        </div><!--/.box-->
+    </div><!--/.container-->
+</section><!--/#services-->
+{% endblock %}
